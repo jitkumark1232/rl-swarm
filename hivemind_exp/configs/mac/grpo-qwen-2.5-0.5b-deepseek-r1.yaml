@@ -25,6 +25,19 @@ beta: 0.001 # 0.04 as in the deepseek math paper 0.001 from https://hijkzzz.noti
 max_prompt_length: 256
 max_completion_length: 1024
 
+# CPU-specific optimizations
+num_workers: 20  # Adjust based on your total threads 
+ddp_enabled: true
+torch_distributed_backend: "gloo"  # CPU-friendly DDP backend
+torch_num_threads: 20  # Adjust based on your total threads
+torch_intraop_threads: 20  # Explicit intra-op parallelism and Adjust based your total threads
+torch_interop_threads: 2   # Minimal inter-op threads to avoid contention
+pin_memory: false
+non_blocking: false
+prefetch_factor: 4  # Boost data pre-loading efficiency
+torch_use_deterministic_algorithms: false  # Speed over determinism
+torch_use_cpu_affinity: true
+
 # Logging arguments
 logging_strategy: steps
 logging_steps: 2
